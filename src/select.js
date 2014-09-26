@@ -332,6 +332,7 @@
         } else {
           ctrl.selected = item;
         }
+        ctrl.search = "";
         ctrl.close();
       }
     };
@@ -339,11 +340,15 @@
     // Closes the dropdown
     ctrl.close = function() {
       if (ctrl.open) {
-        _resetSearchInput();
-        ctrl.open = false;
-        $timeout(function(){
-          ctrl.focusser[0].focus();          
-        },0,false);
+        if(ctrl.search !== "") {
+          ctrl.ngModel.$setViewValue(ctrl.search);
+        } else {
+          _resetSearchInput();
+          ctrl.open = false;
+          $timeout(function(){
+            ctrl.focusser[0].focus();          
+          },0,false);
+        }
       }
     };
 
